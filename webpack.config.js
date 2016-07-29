@@ -1,22 +1,19 @@
-
-var path = require('path');
-var webpack = require('webpack');
-var merge = require('webpack-merge');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var autoprefixer = require('autoprefixer');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var path = require('path')
+var webpack = require('webpack')
+var merge = require('webpack-merge')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var autoprefixer = require('autoprefixer')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 // detemine build env
-var TARGET_ENV = process.env.npm_lifecycle_event === 'build' 
-  ? 'production'
-  : 'development'
+var TARGET_ENV = process.env.npm_lifecycle_event === 'build' ? 'production' : 'development'
 
 // common webpack config
 var common = {
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    filename: '[hash].js',
+    filename: '[hash].js'
   },
   resolve: {
     modulesDirectories: ['node_modules'],
@@ -27,15 +24,13 @@ var common = {
       { test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel',
-        query: { 
+        query: {
           presets: ['es2040'],
           plugins: ['transform-object-rest-spread']
         }
       },
-      { 
-        test: /\.(eot|ttf|woff|woff2|svg)$/,
-        loader: 'file-loader' 
-      }
+      { test: /\.(ttf|eot|svg|jpg|jpeg|png|gif)(\?[\s\S]+)?$/, loader: 'file' },
+      { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url' }
     ]
   },
   plugins: [
@@ -45,13 +40,14 @@ var common = {
       filename: 'index.html'
     })
   ],
-  postcss: [ autoprefixer( { browsers: ['last 2 versions'] } ) ],
+  postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ]
 }
 
 // additional webpack settings for local env (when invoked by 'npm start')
 var development = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
+    'font-awesome-loader',
     path.join(__dirname, 'static/index.js')
   ],
   devServer: {
@@ -61,13 +57,12 @@ var development = {
   module: {
     loaders: [
       {
-        test: /\.(css|scss)$/, 
+        test: /\.(css|scss)$/,
         loaders: ['style', 'css', 'postcss', 'sass']
       }
     ]
   }
 }
-
 
 var production = {
   entry: [
@@ -90,7 +85,7 @@ var production = {
     ]),
     new webpack.optimize.OccurenceOrderPlugin(),
     // extract CSS into a separate file
-    new ExtractTextPlugin( './[hash].css', { allChunks: true } ),
+    new ExtractTextPlugin('./[hash].css', { allChunks: true }),
     // minify & mangle JS/CSS
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,

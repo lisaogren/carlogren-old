@@ -1,4 +1,3 @@
-
 const choo = require('choo')
 
 const app = choo()
@@ -14,6 +13,6 @@ app.model({
   subscriptions: []
 })
 
-app.router(require('./router'));
+app.router(require('./router'))
 
 module.exports = app

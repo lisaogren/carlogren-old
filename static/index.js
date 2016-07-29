@@ -2,7 +2,7 @@
 // Webpack entry-point
 
 // Load style entry-point
-require('./css/index.scss')
+require('./theme/assets/sass/main.scss')
 
 // Load choo entry-point
 const app = require('../src')
