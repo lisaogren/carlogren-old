@@ -2,7 +2,7 @@ const html = require('choo/html')
 
 module.exports = (state, prev, send) => {
   return html `
-    <header id="header">
+    <header id="header" class="alt">
       <h1>
         <a href="index.html">Carl Ogren</a>
       </h1>

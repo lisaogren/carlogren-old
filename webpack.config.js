@@ -30,7 +30,8 @@ var common = {
         }
       },
       { test: /\.(ttf|eot|svg|jpg|jpeg|png|gif)(\?[\s\S]+)?$/, loader: 'file' },
-      { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url' }
+      { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url' },
+      { test: require.resolve('jquery'), loader: 'expose?jQuery!expose?$' }
     ]
   },
   plugins: [

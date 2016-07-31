@@ -1,7 +1,7 @@
 const html = require('choo/html')
 
 module.exports = (item) => {
-  const alt = item.id % 2 ? 'alt' : ''
+  const alt = item.id % 2 ? '' : 'alt'
 
   return html `
     <section class="wrapper ${alt} spotlight style${item.id}">
