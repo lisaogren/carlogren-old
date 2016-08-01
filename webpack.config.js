@@ -67,6 +67,7 @@ var development = {
 
 var production = {
   entry: [
+    'font-awesome-loader',
     path.join(__dirname, 'static/index.js')
   ],
   module: {
@@ -82,7 +83,8 @@ var production = {
   plugins: [
     new CopyWebpackPlugin([
       { from: 'static/img/', to: 'img/' },
-      { from: 'static/favicon.ico' }
+      { from: 'static/favicon.ico' },
+      { from: 'static/theme/', to: 'theme/' }
     ]),
     new webpack.optimize.OccurenceOrderPlugin(),
     // extract CSS into a separate file
