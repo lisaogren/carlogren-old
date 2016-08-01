@@ -5,15 +5,15 @@ const nav = require('../components/nav')
 const banner = require('../components/banner')
 const sections = require('../components/sections/index')
 
-module.exports = (...args) => {
-  // const [state, prev, send] = args
+module.exports = (state, prev, send) => {
+  console.log(state)
 
   return html `
     <div id="page-wrapper">
-      ${header(...args)}
-      ${nav(...args)}
-      ${banner(...args)}
-      ${sections(...args)}
+      ${header(state)}
+      ${nav(state)}
+      ${banner(state)}
+      ${sections(state)}
     </div>
   `
 }
