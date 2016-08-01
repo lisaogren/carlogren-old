@@ -7,7 +7,7 @@ Start the webpack dev server:
 
     npm start
 
-Navigate to <http://localhost:8080>.
+Navigate to <http://localhost:1337>.
 
 Any changes you make to your files ( .js, .css, etc.) will trigger a reload.
 
@@ -25,6 +25,8 @@ This will create a `dist` folder:
         ├── 5df766af1ced8ff1fe0a.css
         ├── 5df766af1ced8ff1fe0a.js
         └── ...
+
+----
 
 ## Content I want to include in my site
 
