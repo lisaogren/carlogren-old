@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --content-base static/",
+    "start": "webpack-dev-server --hot --inline --port 1337 --content-base static/",
     "build": "rimraf dist && webpack",
     "serve": "static dist",
     "watch": "webpack --watch"

@@ -47,7 +47,7 @@ var common = {
 // additional webpack settings for local env (when invoked by 'npm start')
 var development = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:1337',
     'font-awesome-loader',
     path.join(__dirname, 'static/index.js')
   ],
