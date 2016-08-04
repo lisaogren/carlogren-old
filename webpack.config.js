@@ -5,15 +5,17 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var autoprefixer = require('autoprefixer')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+var historyApiFallback = require('connect-history-api-fallback')
 
 // detemine build env
-var TARGET_ENV = process.env.npm_lifecycle_event === 'build' ? 'production' : 'development'
+var TARGET_ENV = process.env.NODE_ENV || 'development'
 
 // common webpack config
 var common = {
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    filename: '[hash].js'
+    filename: '/[hash].js'
   },
   resolve: {
     modulesDirectories: ['node_modules'],
@@ -21,7 +23,8 @@ var common = {
   },
   module: {
     loaders: [
-      { test: /\.js$/,
+      {
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel',
         query: {
@@ -36,25 +39,28 @@ var common = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'static/index.html',
+      template: 'static/tpl.html',
       inject: 'body',
       filename: 'index.html'
     })
   ],
-  postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ]
+  postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
+
+  inline: true,
+  progress: true
 }
 
 // additional webpack settings for local env (when invoked by 'npm start')
 var development = {
   entry: [
-    'webpack-dev-server/client?http://localhost:1337',
+    // 'webpack-dev-server/client?http://localhost:1337',
     'font-awesome-loader',
     path.join(__dirname, 'static/index.js')
   ],
-  devServer: {
-    inline: true,
-    progress: true
-  },
+  // devServer: {
+  //   inline: true,
+  //   progress: true
+  // },
   module: {
     loaders: [
       {
@@ -62,7 +68,23 @@ var development = {
         loaders: ['style', 'css', 'postcss', 'sass']
       }
     ]
-  }
+  },
+  plugins: [
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: 3000,
+      logLevel: 'info',
+      logConnections: true,
+      server: { baseDir: ['static', 'dist'] },
+      bsFiles: { src: ['static', 'dist'] },
+      middleware: [require('connect-logger')(), historyApiFallback()]
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+
+  watch: true,
+  keepalive: true,
+  failOnError: false
 }
 
 var production = {
@@ -95,11 +117,15 @@ var production = {
       compressor: { warnings: false }
       // mangle:  true
     })
-  ]
+  ],
+
+  watch: false,
+  keepalive: false,
+  failOnError: true
 }
 
 if (TARGET_ENV === 'development') {
-  console.log('Booting webpack development server...')
+  console.log('Booting development server...')
   module.exports = merge(common, development)
 } else if (TARGET_ENV === 'production') {
   console.log('Building production /dist folder...')

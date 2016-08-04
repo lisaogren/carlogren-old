@@ -6,9 +6,8 @@ module.exports = (state, prev, send) => {
       <div class="inner">
         <h2>Menu</h2>
         <ul class="links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="generic.html">Generic</a></li>
-          <li><a href="elements.html">Elements</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
           <li><a href="#">Log In</a></li>
           <li><a href="#">Sign Up</a></li>
         </ul>

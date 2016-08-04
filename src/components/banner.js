@@ -8,7 +8,9 @@ module.exports = () => {
           <span class="icon fa-diamond"></span>
         </div>
         <h2>Carl Ogren</h2>
-        <p>Another free + fully responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
+        <p>
+          I'm a web developer \\o/
+        </p>
       </div>
     </section>
   `
