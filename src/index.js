@@ -1,3 +1,10 @@
+// Webpack entry-point
+const $ = require('jquery')
+require('jquery.scrollex')
+
+// Load style entry-point
+require('../static/theme/assets/sass/main.scss')
+
 const choo = require('choo')
 
 const app = choo()
@@ -13,9 +20,27 @@ const app = choo()
 //   subscriptions: []
 // })
 
-app.model(require('./models/sections'))
-app.model(require('./models/articles'))
+const models = require('./models/index')
+models.map(model => app.model(model))
 
 app.router(require('./router'))
 
-module.exports = app
+// Document ready
+$(() => {
+  $(document.body).hide()
+
+  // Load choo entry-point
+  document.body.appendChild(app.start())
+
+  const $header = $('#header')
+  const $banner = $('#banner')
+
+  $banner.scrollex({
+    bottom: $header.outerHeight(),
+    terminate: function () { $header.removeClass('alt') },
+    enter: function () { $header.addClass('alt') },
+    leave: function () { $header.removeClass('alt') }
+  })
+
+  setTimeout(() => $(document.body).fadeIn('slow'), 200)
+})
