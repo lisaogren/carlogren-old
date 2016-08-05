@@ -32,6 +32,7 @@ var common = {
           plugins: ['transform-object-rest-spread']
         }
       },
+      { test: /\.json$/, loader: 'json' },
       { test: /\.(ttf|eot|svg|jpg|jpeg|png|gif)(\?[\s\S]+)?$/, loader: 'file' },
       { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url' },
       { test: require.resolve('jquery'), loader: 'expose?jQuery!expose?$' }
@@ -76,7 +77,7 @@ var development = {
       logLevel: 'info',
       logConnections: true,
       server: { baseDir: ['static', 'dist'] },
-      bsFiles: { src: ['static', 'dist'] },
+      bsFiles: { src: ['static', 'dist', 'src'] },
       middleware: [require('connect-logger')(), historyApiFallback()]
     }),
     new webpack.HotModuleReplacementPlugin()

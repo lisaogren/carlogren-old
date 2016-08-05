@@ -4,11 +4,8 @@ module.exports = (state, prev, send) => {
   return html `
     <header id="header" class="alt">
       <h1>
-        <a href="index.html">Carl Ogren</a>
+        <a href="/">Carl Ogren</a>
       </h1>
-      <nav>
-        <a href="#menu">Menu</a>
-      </nav>
     </header>
   `
 }

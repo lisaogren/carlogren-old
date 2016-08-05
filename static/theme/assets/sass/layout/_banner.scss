@@ -50,6 +50,24 @@
 			font-size: 2.25em;
 			margin-bottom: _size(element-margin) * 0.4;
 			padding-bottom: _size(element-margin) * 0.2;
+
+			em {
+	      @include vendor('transition', (
+					'opacity 0.5s ease',
+					'transform 0.5s ease',
+					'filter 0.25s ease',
+				));
+				@include vendor('transform', 'translateX(0)');
+				@include vendor('transition-delay', '0.8s');
+				@include vendor('filter', 'blur(0)');
+				opacity: 1;
+				font-family: _font(family-heading);
+				font-size: 0.8em;
+				font-weight: _font(weight-heading);
+				letter-spacing: _font(kern-heading);
+				line-height: 2;
+				text-transform: none;
+	    }
 		}
 
 		p {
@@ -67,7 +85,7 @@
 			font-weight: _font(weight-heading);
 			letter-spacing: _font(kern-heading);
 			line-height: 2;
-			text-transform: uppercase;
+			text-transform: none;
 		}
 
 		@include breakpoint(large) {

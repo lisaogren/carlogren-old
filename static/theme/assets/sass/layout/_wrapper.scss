@@ -138,6 +138,11 @@
 			@include padding(3em, 0);
 			margin: 0 auto;
 			width: _size(inner);
+
+			p.empty {
+				color: darken(white, 25%);
+				text-align: center;
+			}
 		}
 
 		@for $i from 2 through _misc(max-wrapper-styles) {
