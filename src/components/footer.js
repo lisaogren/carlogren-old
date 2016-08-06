@@ -31,7 +31,7 @@ module.exports = () => {
           <li class="fa-medium"><a href="https://medium.com/@rascarlito">medium.com/rascarlito</a></li>
         </ul>
         <ul class="copyright">
-          <li>This site is distributed under the <a href="/license">beer-ware license</a></li>
+          <li>This site is distributed under the <a href="https://en.wikipedia.org/wiki/Beerware">beer-ware license</a></li>
           <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
         </ul>
       </div>

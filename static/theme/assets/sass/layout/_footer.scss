@@ -22,6 +22,10 @@
 			form {
 				margin: 0 _size(section-spacing, large) 0 0;
 				width: calc(50% - #{_size(section-spacing, large) * 0.5});
+
+				// label[for=message] {
+				// 	font-size: 7px;
+				// }
 			}
 
 			.contact {

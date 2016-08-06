@@ -25,22 +25,7 @@ models.map(model => app.model(model))
 
 app.router(require('./router'))
 
-// Document ready
-$(() => {
-  $(document.body).hide()
+$(document.body).hide()
+document.body.appendChild(app.start())
 
-  // Load choo entry-point
-  document.body.appendChild(app.start())
-
-  const $header = $('#header')
-  const $banner = $('#banner')
-
-  $banner.scrollex({
-    bottom: $header.outerHeight(),
-    terminate: function () { $header.removeClass('alt') },
-    enter: function () { $header.addClass('alt') },
-    leave: function () { $header.removeClass('alt') }
-  })
-
-  setTimeout(() => $(document.body).fadeIn('slow'), 200)
-})
+require('./utils/responsive')
