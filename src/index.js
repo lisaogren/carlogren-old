@@ -1,31 +1,27 @@
-// Webpack entry-point
+// Dependencies
 const $ = require('jquery')
 require('jquery.scrollex')
+
+const choo = require('choo')
+const responsive = require('./utils/responsive')
 
 // Load style entry-point
 require('../static/theme/assets/sass/main.scss')
 
-const choo = require('choo')
-
+// Init app
 const app = choo()
 
-// app.model({
-//   state: {
-//     counter: 0
-//   },
-//   reducers: {
-//     increment: (_, state) => ({ counter: state.counter + 1 })
-//   },
-//   effects: {},
-//   subscriptions: []
-// })
-
+// Init models
 const models = require('./models/index')
 models.map(model => app.model(model))
 
+// Init router
 app.router(require('./router'))
 
+// Hide body before rendering
 $(document.body).hide()
+
+// Render app to body
 document.body.appendChild(app.start())
 
-require('./utils/responsive')
+responsive.init()
