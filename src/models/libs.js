@@ -13,7 +13,7 @@ module.exports = {
         id: 2,
         title: 'jQuery.HoverScroll',
         description: 'Simple jquery plugin to make a list scrollable by hovering the mouse over it.',
-        image: 'theme/images/pic05.jpg',
+        image: 'theme/images/jquery-hoverscroll.jpg',
         link: 'http://rascarlito.free.fr/hoverscroll/'
       },
       {
@@ -21,7 +21,7 @@ module.exports = {
         title: 'jsControl',
         description: 'An old attempt at making a jQuery-like frontend framework.',
         image: 'theme/images/jscontrol.jpg',
-        link: 'http://rascarlito.free.fr/jscontrol/'
+        link: 'http://rascarlito.free.fr/jsControl/'
       }
     ]
   }

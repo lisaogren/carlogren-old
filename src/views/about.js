@@ -25,8 +25,9 @@ module.exports = () => {
             <p>
               Born in Stockholm, Sweden in 1985. My family moved to Paris, France when I was three years old.
               I've grown up in France, often feeling more French than Swedish when it suited me.
-              I went to different schools and experienced different school systems. First french school althrough grades 1 to 9,
-              then swedish school during middle-school and finally an international school during high-school.
+              I went to different schools and experienced different school systems.
+              First through the french school system during elementary school,
+              then swedish school system during middle school and finally an international school system during high school.
               All this in Paris and its surroundings.
             </p>
             <p>
@@ -48,7 +49,7 @@ module.exports = () => {
             </p>
             <h3>Here comes the web!</h3>
             <p>
-              That is when I started learning how to build web pages.
+              That is when I started learning how to build web pages. Now things were getting interesting.
             </p>
             <p>
               <em>Note: More about me soon!</em>
