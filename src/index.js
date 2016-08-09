@@ -1,12 +1,11 @@
 // Dependencies
 const $ = require('jquery')
 require('jquery.scrollex')
+require('jquery.scrollto')
+require('../static/theme/assets/sass/main.scss')
 
 const choo = require('choo')
 const responsive = require('./utils/responsive')
-
-// Load style entry-point
-require('../static/theme/assets/sass/main.scss')
 
 // Init app
 const app = choo()
@@ -24,4 +23,5 @@ $(document.body).hide()
 // Render app to body
 document.body.appendChild(app.start())
 
+// Init responsive utils
 responsive.init()

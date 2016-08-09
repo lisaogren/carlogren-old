@@ -1,22 +1,21 @@
-const _ = require('lodash')
 const html = require('choo/html')
 
-const defaultOptions = {
-  components: []
-}
-
-const renderComponents = (components) => {
-  return components.map(component => component())
-}
+const { form, links } = require('./contact')
+const copyright = require('./copyright')
 
 module.exports = (state, options) => {
-  options = _.extend({}, defaultOptions, options)
-
-  console.log(options)
-
   return html `
     <section id="footer">
-      ${renderComponents(options.components)}
+      <div class="inner">
+        <h2 class="major">Get in touch</h2>
+        <p>
+          Send me a message or contact me through the listed medias,
+          I'll be glad to exchange a few words with you! <i class="icon fa-smile-o"></i>
+        </p>
+        ${form()}
+        ${links()}
+        ${copyright()}
+      </div>
     </section>
   `
 }

@@ -1,4 +1,5 @@
 module.exports = [
   require('./articles'),
-  require('./sections')
+  require('./sections'),
+  require('./libs')
 ]
