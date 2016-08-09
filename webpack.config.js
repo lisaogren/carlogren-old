@@ -107,7 +107,7 @@ var production = {
     new CopyWebpackPlugin([
       { from: 'static/img/', to: 'img/' },
       { from: 'static/favicon.ico' },
-      { from: 'static/theme/', to: 'theme/' }
+      { from: 'static/theme/images/', to: 'theme/images/' }
     ]),
     new webpack.optimize.OccurenceOrderPlugin(),
     // extract CSS into a separate file
@@ -115,8 +115,8 @@ var production = {
     // minify & mangle JS/CSS
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
-      compressor: { warnings: false }
-      // mangle:  true
+      compressor: { warnings: false },
+      mangle: true
     })
   ],
 
