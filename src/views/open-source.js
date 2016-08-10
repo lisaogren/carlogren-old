@@ -9,7 +9,7 @@ module.exports = (state) => {
   // Scroll to top of the page
   $(window).scrollTo(0, 'fast')
 
-  const libs = state.libs.list
+  const { list } = state.libs
 
   return html `
     <div id="page-wrapper">
@@ -39,7 +39,7 @@ module.exports = (state) => {
             <p>Some of the JavaScript libraries I've published</p>
 
             <section class="features">
-              ${libs.map(lib => article(lib))}
+              ${list.map(lib => article(lib))}
             </section>
           </div>
         </div>
