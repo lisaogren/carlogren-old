@@ -7,7 +7,7 @@ module.exports = function (shipit) {
     default: {
       workspace: workspace,
       deployTo: '/home/rascarlito/carlogren-test',
-      repositoryUrl: 'git@github.com:RasCarlito/carlogren.git',
+      repositoryUrl: 'git@gitlab.com:rascarlito/carlogren.git',
       keepReleases: 3,
       ignores: ['.git', 'node_modules'],
       dirToCopy: workspace + '/dist'
