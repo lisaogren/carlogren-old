@@ -12,8 +12,8 @@ module.exports = function (shipit) {
       ignores: ['.git', 'node_modules'],
       dirToCopy: workspace + '/dist'
     },
-    servers: {
-      production: 'rascarlito@carlogren.com'
+    production: {
+      servers: 'rascarlito@carlogren.com'
     }
   })
 
