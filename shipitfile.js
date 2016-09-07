@@ -6,7 +6,7 @@ module.exports = function (shipit) {
   shipit.initConfig({
     default: {
       workspace: workspace,
-      deployTo: '/home/rascarlito/carlogren-test',
+      deployTo: '/home/rascarlito/www/carlogren',
       repositoryUrl: 'git@gitlab.com:rascarlito/carlogren.git',
       keepReleases: 3,
       ignores: ['.git', 'node_modules'],
