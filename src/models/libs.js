@@ -4,10 +4,17 @@ module.exports = {
     list: [
       {
         id: 1,
-        title: 'Backbone.Highway',
-        description: 'A better router for Backbone applications. My favorite open source library so far.',
+        title: 'Backbone-Highway',
+        description: 'A better router for Backbone applications.',
         image: 'theme/images/backbone-highway.jpg',
         link: 'https://github.com/d4f/backbone-highway'
+      },
+      {
+        id: 2,
+        title: 'url-composer',
+        description: 'Building dynamic URLs.',
+        image: 'theme/images/url-composer.jpg',
+        link: 'https://github.com/RasCarlito/url-composer'
       },
       {
         id: 2,

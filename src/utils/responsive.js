@@ -1,4 +1,5 @@
 const $ = require('jquery')
+const get = require('lodash/get')
 const skel = require('../../static/theme/assets/js/skel.min')
 
 require('../../static/theme/assets/js/util')
@@ -52,12 +53,21 @@ const responsive = {
     if ($banner.length > 0 && $header.hasClass('alt')) {
       $window.on('resize', () => { $window.trigger('scroll') })
 
+      // TODO:10 Replace jquery.scrollex dependency by in-view
       $banner.scrollex({
         bottom: $header.outerHeight(),
         terminate: () => { $header.removeClass('alt') },
         enter: () => { $header.addClass('alt') },
         leave: () => { $header.removeClass('alt') }
       })
+    }
+  },
+
+  scrollTop (state, prev) {
+    const scroll = get(state, 'location.pathname') !== get(prev, 'location.pathname')
+
+    if (scroll) {
+      document.body.scrollTop = 0
     }
   }
 }

@@ -1,13 +1,13 @@
-const $ = require('jquery')
 const html = require('choo/html')
+const responsive = require('../utils/responsive')
 
 const header = require('../components/header')
 const footer = require('../components/footer')
 const article = require('../components/sections/article')
 
-module.exports = (state) => {
+module.exports = (state, prev, send) => {
   // Scroll to top of the page
-  $(window).scrollTo(0, 'fast')
+  responsive.scrollTop(state, prev)
 
   const { list } = state.libs
 
@@ -45,7 +45,7 @@ module.exports = (state) => {
         </div>
       </div>
 
-      ${footer()}
+      ${footer(state, prev, send)}
     </div>
   `
 }

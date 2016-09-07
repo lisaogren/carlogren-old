@@ -1,5 +1,6 @@
 module.exports = [
   require('./articles'),
   require('./sections'),
-  require('./libs')
+  require('./libs'),
+  require('./email')
 ]

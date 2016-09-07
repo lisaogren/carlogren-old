@@ -1,4 +1,7 @@
+// const _ = require('lodash')
 const html = require('choo/html')
+
+const responsive = require('../utils/responsive')
 
 const header = require('../components/header')
 const copyright = require('../components/copyright')
@@ -12,7 +15,7 @@ module.exports = () => {
         <header>
           <div class="inner">
             <h2>Login to admin panel</h2>
-            <p>Yes, here is the entrance to the batcave! But I'm the only one allowed in.</p>
+            <p>Yes, here is the entrance to the bat cave! But I'm the only one allowed in.</p>
           </div>
         </header>
 
