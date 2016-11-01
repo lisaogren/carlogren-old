@@ -15,7 +15,7 @@ module.exports = (state, prev, send) => {
     <div id="page-wrapper">
       ${header({ alt: false })}
 
-      <div id="wrapper">
+      <section id="wrapper">
         <header>
           <div class="inner">
             <h2>Open Source</h2>
@@ -43,7 +43,7 @@ module.exports = (state, prev, send) => {
             </section>
           </div>
         </div>
-      </div>
+      </section>
 
       ${footer(state, prev, send)}
     </div>

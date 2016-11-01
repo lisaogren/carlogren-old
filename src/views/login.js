@@ -1,8 +1,6 @@
 // const _ = require('lodash')
 const html = require('choo/html')
 
-const responsive = require('../utils/responsive')
-
 const header = require('../components/header')
 const copyright = require('../components/copyright')
 
