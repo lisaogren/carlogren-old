@@ -35,23 +35,22 @@ This will create a `dist` folder:
 Hi!
 
 My name is Carl Ogren. I am a web developer specialized in JavaScript.
-Please feel free to contact me if you need a quotation for a specific development.
 
 ### Portfolio
 
 Opensource Libraries
 
- - jsControl
- - jquery.hoverscroll
- - backbone-highway
- - backbone-highway2
+* jsControl
+* jquery.hoverscroll
+* backbone-highway
+* url-composer
 
- Presentations
+Presentations
 
-  - backbone-highway (Mozilla Paris)
-  - REX Bytel (Best of web 2016)
+ * backbone-highway (Mozilla Paris)
+ * REX Bytel (Best of web 2016)
 
 ## Functionalities
 
- - CMS
- - Admin
+* CMS
+* Admin
