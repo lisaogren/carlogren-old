@@ -1,12 +1,12 @@
 const html = require('choo/html')
-const responsive = require('../utils/responsive')
+// const responsive = require('../utils/responsive')
 
 const header = require('../components/header')
 const footer = require('../components/footer')
 
-module.exports = (state, prev, send) => {
+module.exports = (state, emit) => {
   // Scroll to top of the page
-  responsive.scrollTop(state, prev)
+  // responsive.scrollTop(state, prev)
 
   return html `
     <div id="page-wrapper">
@@ -58,7 +58,7 @@ module.exports = (state, prev, send) => {
         </div>
       </section>
 
-      ${footer(state, prev, send)}
+      ${footer(state, emit)}
     </div>
   `
 }

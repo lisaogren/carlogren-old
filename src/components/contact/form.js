@@ -1,23 +1,31 @@
 const html = require('choo/html')
-const debounce = require('lodash/debounce')
 const delay = require('lodash/delay')
 
-module.exports = (state, prev, send) => {
+const form = require('utils/form')
+
+module.exports = (state, emit) => {
   // Extract field validation state
-  const { valid } = state.email
+  const { valid, values } = state.email
 
   // Define form validation rules
-  const validateName = validate(/^[a-zA-Z\u00C0-\u017F -]{1,256}$/)
-  const validateEmail = validate(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
-  const validateMessage = validate(/.+/)
+  const validateName = function (e) {
+    emit('email:value', { name: e.target.value })
+    form.validate('email:validate', /^[a-zA-Z\u00C0-\u017F -]{1,256}$/, emit)(e)
+  }
+  const validateEmail = form.validate(
+    'email:validate',
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+    emit
+  )
+  const validateMessage = form.validate('email:validate', /.+/, emit)
 
   // Error messages
-  const nameError = error(
+  const nameError = form.error(
     valid.name,
     'Please enter a valid name. It should not contain any punctuation except the hyphen (-) character'
   )
-  const emailError = error(valid.email, 'Please enter a valid email address')
-  const messageError = error(
+  const emailError = form.error(valid.email, 'Please enter a valid email address')
+  const messageError = form.error(
     valid.message,
     html `
       <span>
@@ -25,7 +33,7 @@ module.exports = (state, prev, send) => {
       </span>
     `
   )
-  const sendingError = error(
+  const sendingError = form.error(
     state.email.error === null,
     state.email.error
   )
@@ -34,7 +42,7 @@ module.exports = (state, prev, send) => {
     resetFields()
 
     delay(() => {
-      send('email:reset')
+      emit('email:reset')
     }, 10000)
   }
 
@@ -43,17 +51,17 @@ module.exports = (state, prev, send) => {
     <form onsubmit=${sendEmail}>
       <div class="field">
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" placeholder="Enter your name" onkeydown=${validateName} onchange=${validateName} />
+        <input type="text" name="name" id="name" placeholder="Enter your name" value=${values.name} onkeyup=${validateName} onchange=${validateName} />
         ${nameError}
       </div>
       <div class="field">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="Enter your email so I can reply to you" onkeydown=${validateEmail} onchange=${validateEmail} />
+        <input type="email" name="email" id="email" placeholder="Enter your email so I can reply to you" value=${values.email} onkeydown=${validateEmail} onchange=${validateEmail} />
         ${emailError}
       </div>
       <div class="field">
         <label for="message">Message</label>
-        <textarea name="message" id="message" rows="4" placeholder="Why are you writing to me?" onkeydown=${validateMessage} onchange=${validateMessage}></textarea>
+        <textarea name="message" id="message" rows="4" placeholder="Why are you writing to me?" onkeydown=${validateMessage} onchange=${validateMessage}>${values.message}</textarea>
         ${messageError}
       </div>
       <ul class="actions">
@@ -77,34 +85,11 @@ module.exports = (state, prev, send) => {
   function sendEmail (e) {
     e.preventDefault()
 
-    send('email:send', {
+    emit('email:send', {
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
       message: document.getElementById('message').value
     })
-  }
-
-  function validate (rule) {
-    return debounce((e) => {
-      send('email:validate', {
-        field: e.target.name,
-        value: e.target.value,
-        rule
-      })
-    }, 300)
-  }
-
-  function error (isValid, message) {
-    if (isValid === false) {
-      return html `
-        <p class="error">
-          <i class="fa fa-times"></i>
-          <span>${message}</span>
-        </p>
-      `
-    }
-
-    return ''
   }
 
   function resetFields () {

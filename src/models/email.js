@@ -1,76 +1,104 @@
 const config = require('../config')
-const http = require('choo/http')
+const http = require('xhr')
 const delay = require('lodash/delay')
+const extend = require('lodash/extend')
 
 const emailConfig = {
   host: 'https://formspree.io/carl.ogren@gmail.com'
 }
 
-module.exports = {
-  namespace: 'email',
-  state: {
-    valid: {
-      name: null,
-      email: null,
-      message: null
-    },
-    sending: false,
-    success: null,
-    error: null
+const defaultState = {
+  valid: {
+    name: null,
+    email: null,
+    message: null
   },
-  effects: {
-    validate: (data, state, send, done) => {
-      const { field, value, rule } = data
-      const valid = rule.test(value)
+  values: {
+    name: '',
+    email: '',
+    message: ''
+  },
+  sending: false,
+  success: null,
+  error: null
+}
 
-      send('email:valid', { field, valid }, done)
-    },
-    send: (data, state, send, done) => {
-      const { name, email, message } = state.valid
+module.exports = function (state, emitter) {
+  // Set default state
+  state.email = extend({}, defaultState)
 
-      if (!name || !email || !message) {
-        send('email:error', 'Please fill in all the fields correctly', done)
-        return
-      }
+  emitter.on('email:validate', function (data) {
+    const { field, value, rule } = data
 
-      send('email:sending', data, done)
+    state.email.values[field] = value
 
-      if (config.debug) {
-        console.log('Email would have been sent', data)
-        delay(() => send('email:sent', data, done), 2000)
-        return
-      }
+    const valid = rule.test(value)
 
-      http.post(emailConfig.host, { json: data }, (err, res, body) => {
-        if (err) {
-          console.error('Got error sending email request', err, res)
-          send('email:error', 'The email could not be sent due to a technical error, please try again later.', done)
-          return
-        }
+    emitter.emit('email:valid', { field, valid })
+  })
 
-        console.log('Yay!', res, body)
-        send('email:sent', data, done)
-      })
+  emitter.on('email:send', function (data) {
+    const { name, email, message } = state.email.valid
+
+    if (!name || !email || !message) {
+      emitter.emit('email:error', 'Please fill in all the fields correctly')
+      return
     }
-  },
-  reducers: {
-    valid: (data, state) => {
-      state.valid[data.field] = data.valid
-      state.error = null
-      return state
-    },
-    sending: (data, state) => ({ sending: true }),
-    sent: (data, state) => ({ sending: false, success: true, error: null }),
-    error: (data, state) => ({ sending: false, success: false, error: data }),
-    reset: (data, state) => ({
-      valid: {
-        name: null,
-        email: null,
-        message: null
-      },
-      sending: false,
-      success: null,
-      error: null
+
+    emitter.emit('email:sending', data)
+
+    if (config.debug) {
+      console.log('Email would have been sent', data)
+      delay(() => emitter.emit('email:sent', data), 2000)
+      return
+    }
+
+    http.post(emailConfig.host, { json: data }, (err, res, body) => {
+      if (err) {
+        emitter.emit('email:error', 'The email could not be sent due to a technical error, please try again later.')
+        return
+      }
+
+      emitter.emit('email:sent', data)
     })
-  }
+  })
+
+  emitter.on('email:valid', function (data) {
+    state.email.valid[data.field] = data.valid
+    state.email.error = null
+
+    emitter.emit('render')
+  })
+
+  emitter.on('email:value', function (data) {
+    state.email.values = extend(state.email.values, data)
+  })
+
+  emitter.on('email:sending', function () {
+    state.email.sending = true
+
+    emitter.emit('render')
+  })
+
+  emitter.on('email:sent', function () {
+    state.email.sending = false
+    state.email.sucess = true
+    state.email.error = null
+
+    emitter.emit('render')
+  })
+
+  emitter.on('email:error', function (data) {
+    state.email.sending = false
+    state.email.sucess = false
+    state.email.error = data
+
+    emitter.emit('render')
+  })
+
+  emitter.on('email:reset', function () {
+    state.email = extend({}, defaultState)
+
+    emitter.emit('render')
+  })
 }

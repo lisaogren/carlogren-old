@@ -3,7 +3,7 @@ const html = require('choo/html')
 const { form, links } = require('./contact')
 const copyright = require('./copyright')
 
-module.exports = (state, prev, send) => {
+module.exports = (state, emit) => {
   return html `
     <section id="footer">
       <div class="inner">
@@ -12,7 +12,7 @@ module.exports = (state, prev, send) => {
           Send me a message or contact me through the listed medias,
           I'll be glad to exchange a few words with you! <i class="icon fa-smile-o"></i>
         </p>
-        ${form(state, prev, send)}
+        ${form(state, emit)}
         ${links()}
         ${copyright()}
       </div>

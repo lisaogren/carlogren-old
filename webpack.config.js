@@ -14,13 +14,17 @@ var TARGET_ENV = process.env.NODE_ENV || 'development'
 
 // common webpack config
 var common = {
+  entry: [
+    'font-awesome-loader',
+    path.join(__dirname, 'static/index.js')
+  ],
   output: {
-    path: path.resolve(__dirname, 'dist/'),
-    filename: '/app.[hash].js'
+    publicPath: '/',
+    filename: 'app.[hash].js'
   },
   resolve: {
-    modulesDirectories: ['node_modules'],
-    extensions: ['', '.js', '.json']
+    modulesDirectories: ['node_modules', 'src', 'static'],
+    extensions: ['', '.js', '.json', '.scss', '.css']
   },
   module: {
     loaders: [
@@ -54,15 +58,9 @@ var common = {
 
 // additional webpack settings for local env (when invoked by 'npm start')
 var development = {
-  entry: [
-    // 'webpack-dev-server/client?http://localhost:1337',
-    'font-awesome-loader',
-    path.join(__dirname, 'static/index.js')
-  ],
-  // devServer: {
-  //   inline: true,
-  //   progress: true
-  // },
+  output: {
+    path: path.resolve(__dirname, '.tmp/')
+  },
   module: {
     loaders: [
       {
@@ -74,11 +72,11 @@ var development = {
   plugins: [
     new BrowserSyncPlugin({
       host: 'localhost',
-      port: 3000,
+      port: 1337,
       logLevel: 'info',
       logConnections: true,
-      server: { baseDir: ['static', 'dist'] },
-      bsFiles: { src: ['static', 'dist', 'src'] },
+      server: { baseDir: ['static', '.tmp'] },
+      bsFiles: { src: ['static', '.tmp'] },
       middleware: [require('connect-logger')(), historyApiFallback()]
     }),
     new webpack.HotModuleReplacementPlugin(),
@@ -91,10 +89,9 @@ var development = {
 }
 
 var production = {
-  entry: [
-    'font-awesome-loader',
-    path.join(__dirname, 'static/index.js')
-  ],
+  output: {
+    path: path.resolve(__dirname, 'dist/')
+  },
   module: {
     loaders: [
       {

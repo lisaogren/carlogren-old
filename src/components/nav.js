@@ -1,6 +1,6 @@
 const html = require('choo/html')
 
-module.exports = (state, prev, send) => {
+module.exports = () => {
   return html `
     <nav id="menu">
       <div class="inner">

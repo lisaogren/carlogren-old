@@ -1,33 +1,38 @@
 // Dependencies
 const $ = require('jquery')
-require('jquery.scrollex')
-require('../static/theme/assets/sass/main.scss')
-
 const choo = require('choo')
+
+require('jquery.scrollex')
+
 const responsive = require('./utils/responsive')
-const config = require('./config')
+// const config = require('./config')
+
+require('theme/assets/sass/main.scss')
 
 // Init app
 const app = choo()
 
 // Plugins
-if (config.debug) {
-  const log = require('choo-log')
-  app.use(log())
-}
+// if (config.debug) {
+//   const log = require('choo-log')
+//   app.use(log())
+// }
 
 // Init models
 const models = require('./models/index')
-models.map(model => app.model(model))
+models.map(model => app.use(model))
 
 // Init router
-app.router(require('./router'))
+const router = require('./router')
+
+router.start(app)
 
 // Hide body before rendering
 $(document.body).hide()
 
 // Render app to body
-document.body.appendChild(app.start())
+const tree = app.start()
+document.body.appendChild(tree)
 
 // Init responsive utils
 responsive.init()
